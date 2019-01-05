@@ -4,11 +4,13 @@
 
 状态转移图
 
-各部分的详细功能框图
-
 ![img](pics/1-1.png)
 
 * * *
+
+#  Block Diagram
+
+各部分的详细功能框图
 
 # DESIGN
 
