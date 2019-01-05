@@ -4,13 +4,13 @@
 
 状态转移图
 
-![img](pics/1-1.png)
+![img](pics/1-1new.png)
 
 * * *
 
 #  Block Diagram
 
-各部分的详细功能框图
+![img](pics/1-2new.png)
 
 # DESIGN
 
@@ -721,7 +721,7 @@ endmodule
     assign neg_signal = ( ~delay[1] ) && delay[2];
     always @ ( posedge clk_1kHz)
         //为了消除边沿的“毛刺”现象，使用了连续的D触发器进行了延迟处理，可在波形图最初观察到
-        delay <= { delay[1:0], ori_signal} ; 
+        delay <= { delay[1:0], ori_signal} ;
 ```
 
 ![img](pics/4-2.png)
@@ -730,7 +730,7 @@ endmodule
 module sim_neg_signal( );
     reg clk_1kHz,ori_signal;
     wire neg_signal;
-    neg_signal u(clk_1kHz,ori_signal, neg_signal); 
+    neg_signal u(clk_1kHz,ori_signal, neg_signal);
     initial
     begin
     clk_1kHz = 1'b0;
@@ -764,7 +764,7 @@ module sim_Time_Basic( );
     wire Sec_Q6, Sec_Q5, Sec_Q4, Sec_Q3, Sec_Q2, Sec_Q1, Sec_Q0;
     wire Min_Q6, Min_Q5, Min_Q4, Min_Q3, Min_Q2, Min_Q1, Min_Q0;
     wire Hour_Q6, Hour_Q5, Hour_Q4, Hour_Q3, Hour_Q2, Hour_Q1, Hour_Q0;
-    Time_Basic u(clk, ET, EP, CR_n, LD_n, 
+    Time_Basic u(clk, ET, EP, CR_n, LD_n,
                  Sec_D6, Sec_D5, Sec_D4, Sec_D3, Sec_D2, Sec_D1, Sec_D0,
                  Min_D6, Min_D5, Min_D4, Min_D3, Min_D2, Min_D1, Min_D0,
                  Hour_D6, Hour_D5, Hour_D4, Hour_D3, Hour_D2, Hour_D1, Hour_D0,
@@ -882,8 +882,8 @@ endmodule
 module sim_led_flash_control();
     reg clk_1kHz, rst_n,dir;
     wire[7:0]seg_en;
-    led_flash_control led_flash_control(clk_1kHz,rst_n,dir,seg_en ); 
-    initial 
+    led_flash_control led_flash_control(clk_1kHz,rst_n,dir,seg_en );
+    initial
     begin
         clk_1kHz = 1'b0;
         rst_n = 1'b0;
@@ -926,12 +926,39 @@ endmodule
 
 ### 11713020-张佳晨
 
-### -胡玉斌
+### 11712121-胡玉斌: make the buzzer part, the light flash
 
-### -陈宇航
+### 11712412-陈宇航: make the time modify part
 
 ## Problem & Solving
 
+1. At the begining, we think that we should give the buzzer a frequency, but it didn't ring. Finally, we find that if we give the sign to make the buzzer ring 1000 times in a second, and it rings lightly! Also, we find the reference and know which tonality matchs the right frequency. Here is the tonality table:
+```verilog
+case(yinlu)
+'d1:origin='d262;  //low
+'d2:origin='d294;
+'d3:origin='d330;
+'d4:origin='d349;
+'d5:origin='d392;
+'d6:origin='d440;
+'d7:origin='d494;
+'d8:origin='d523;  //middle
+'d9:origin='d587;
+'d10:origin='d659;
+'d11:origin='d698;
+'d12:origin='d784;
+'d13:origin='d880;
+'d14:origin='d988;
+'d15:origin='d1046;  //high
+'d16:origin='d1175;
+'d17:origin='d1318;
+'d18:origin='d1397;
+'d19:origin='d1568;
+'d20:origin='d1760;
+'d21:origin='d1967;
+default:origin='d1024; // default
+endcase     
+```
+Following the table, we can make every music as the alarm.
 
-
-
+2. Once, we make a mistake that we match the parameters in wrong order, which make our alarm cann't work normally. And this mistake is not easy to check, so in the future, when we do a project, we should check the parameters in right order at the first time, name parameters in the right naming rule and write the comments to help others to understand the project codes in the fast speed.
