@@ -1,14 +1,6 @@
-# State Diagram
-
-* * *
-
-状态转移图
+#  Diagram
 
 ![img](pics/1-1new.png)
-
-* * *
-
-#  Block Diagram
 
 ![img](pics/1-2new.png)
 
@@ -16,7 +8,7 @@
 
 * * *
 
-> ### `Time_top.v`
+>  `Time_top.v`
 >
 > is the main design file.
 
@@ -924,11 +916,18 @@ endmodule
 
 ## Task Allocations
 
-### 11713020-张佳晨
+### 11713020-张佳晨：
 
-### 11712121-胡玉斌: make the buzzer part, the light flash
+Led display, basic time and the standard clock
 
-### 11712412-陈宇航: make the time modify part
+simulation and test the code on FPGA.
+
+
+### 11712121-胡玉斌: 
+make the buzzer part, the light flash
+
+### 11712412-陈宇航: 
+make the time modify part
 
 ## Problem & Solving
 
@@ -962,3 +961,4 @@ endcase
 Following the table, we can make every music as the alarm.
 
 2. Once, we make a mistake that we match the parameters in wrong order, which make our alarm cann't work normally. And this mistake is not easy to check, so in the future, when we do a project, we should check the parameters in right order at the first time, name parameters in the right naming rule and write the comments to help others to understand the project codes in the fast speed.
+3. The changing signal of hour is different than minute ,  while the changing signal of minute is only when the signal of second is at positive edge,  the changing signal of hour is at the time when signals of   second and minute are both at their positive edges.
